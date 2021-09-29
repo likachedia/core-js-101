@@ -72,8 +72,12 @@ function getFactorial(n) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let a = n2 * (n2 + 1);
+  a /= 2;
+  let b = n1 * (n1 - 1);
+  b /= 2;
+  return a - b;
 }
 
 
@@ -92,8 +96,8 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return a + b > c && a + c > b && b + c > a;
 }
 
 
@@ -160,8 +164,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const distance = Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2);
+  return distance < circle.radius;
 }
 
 
@@ -176,17 +181,24 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  /**  for (let i = 0; i >= str.length; i += 1) {
-    for (let j = 1; j >= str.length; j += 1) {
+function findFirstSingleChar(str) {
+  const map = new Map();
+  for (let i = 0; i < str.length; i += 1) {
+    if (map[str[i]] !== 1) {
+      for (let j = i + 1; j < str.length; j += 1) {
         if (str[i] === str[j]) {
-          continue;
-        } else {
+          map[str[i]] = 1;
+          break;
+        }
+
+        if (j === str.length - 1) {
           return str[i];
         }
+      }
     }
-  }   */
-  throw new Error('Not implemented');
+  }
+
+  return null;
 }
 
 
@@ -308,8 +320,15 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let sum = 0;
+  let val = num;
+  while (val !== 0) {
+    sum += val % 10;
+    val = Math.floor(val / 10);
+  }
+
+  return sum > 9 ? getDigitalRoot(sum) : sum;
 }
 
 
@@ -359,8 +378,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -434,8 +453,33 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (position[0][0] && position[0][0] === position[0][1] && position[0][1] === position[0][2]) {
+    return position[0][0];
+  }
+  if (position[1][0] && position[1][0] === position[1][1] && position[1][1] === position[1][2]) {
+    return position[1][0];
+  }
+  if (position[2][0] && position[2][0] === position[2][1] && position[2][1] === position[2][2]) {
+    return position[2][0];
+  }
+  if (position[0][0] && position[0][0] === position[1][0] && position[1][0] === position[2][0]) {
+    return position[0][0];
+  }
+  if (position[0][1] && position[0][1] === position[1][1] && position[1][1] === position[2][1]) {
+    return position[0][1];
+  }
+  if (position[0][2] && position[0][2] === position[1][2] && position[1][2] === position[2][2]) {
+    return position[0][2];
+  }
+  if (position[0][0] && position[0][0] === position[1][1] && position[1][1] === position[2][2]) {
+    return position[0][0];
+  }
+  if (position[2][0] && position[2][0] === position[1][1] && position[1][1] === position[0][2]) {
+    return position[2][0];
+  }
+
+  return undefined;
 }
 
 
