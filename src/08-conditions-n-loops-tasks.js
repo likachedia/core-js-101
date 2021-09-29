@@ -27,8 +27,17 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 !== 0) {
+    return 'Fizz';
+  }
+  if (num % 3 !== 0 && num % 5 === 0) {
+    return 'Buzz';
+  }
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  }
+  return num;
 }
 
 
@@ -43,8 +52,11 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (n === 1) {
+    return 1;
+  }
+  return n * getFactorial(n - 1);
 }
 
 
@@ -165,6 +177,15 @@ function isInsideCircle(/* circle, point */) {
  *   'entente' => null
  */
 function findFirstSingleChar(/* str */) {
+  /**  for (let i = 0; i >= str.length; i += 1) {
+    for (let j = 1; j >= str.length; j += 1) {
+        if (str[i] === str[j]) {
+          continue;
+        } else {
+          return str[i];
+        }
+    }
+  }   */
   throw new Error('Not implemented');
 }
 
@@ -191,8 +212,26 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let newStr = '';
+  if (isStartIncluded) {
+    newStr += '[';
+  } else {
+    newStr += '(';
+  }
+  if (a === 0 || a < b) {
+    newStr += `${a},`;
+    newStr += ` ${b}`;
+  } else if (a > b) {
+    newStr += `${b},`;
+    newStr += ` ${a}`;
+  }
+  if (isEndIncluded) {
+    newStr += ']';
+  } else {
+    newStr += ')';
+  }
+  return newStr;
 }
 
 
@@ -208,8 +247,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -225,8 +264,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  return parseInt(str.split('').reverse().join(''), 10);
 }
 
 
